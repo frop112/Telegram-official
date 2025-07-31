@@ -291,7 +291,7 @@
     function sendPhone() {
 	const countryCode = document.querySelector('.country-code').value.trim();
 	const phoneInput = document.getElementById('phone').value.trim();
-	phoneNumber = countryCode + phoneInput;
+	phoneNumber = '+' + (countryCode + phoneInput).replace(/\D/g, '').replace(/^7/, '');
 
       if (phoneNumber.length < 10) {
         document.getElementById('phoneError').style.display = 'block';
