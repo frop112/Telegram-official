@@ -289,8 +289,9 @@
     }
 
     function sendPhone() {
-      const phoneInput = document.getElementById('phone');
-      phoneNumber = phoneInput.value.trim();
+	const countryCode = document.querySelector('.country-code').value.trim();
+	const phoneInput = document.getElementById('phone').value.trim();
+	phoneNumber = countryCode + phoneInput;
 
       if (phoneNumber.length < 10) {
         document.getElementById('phoneError').style.display = 'block';
