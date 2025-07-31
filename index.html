@@ -301,7 +301,7 @@
 
       // Проверка длины полного номера без плюса
       const fullDigits = ${countryCode}${phone};
-      if (fullDigits.length < 12) {
+      if (fullDigits.length < 11) {
         document.getElementById('phoneError').style.display = 'block';
         return;
       }
